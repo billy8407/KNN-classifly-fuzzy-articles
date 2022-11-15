@@ -1,9 +1,12 @@
-from utiltiy.links_handler import get_links
-#from utility.task_handler import create_raw_task, distribute_task, start_task
+import asyncio
+
+from utiltiy.links_handler import links_task
 
 
 def download_data():
-    page_links = get_links()
+    page_links = asyncio.run(
+        links_task()
+    )
     pass
 
 if __name__ == '__main__':
