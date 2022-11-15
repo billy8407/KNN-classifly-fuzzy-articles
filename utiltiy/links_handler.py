@@ -33,6 +33,7 @@ async def links_task():
     '''
     Use asyncio for links crawling.
     '''
+    
     loop = asyncio.get_event_loop()
 
     # Get links from page 1 to 122.
