@@ -21,26 +21,29 @@ async def get_links(loop, i):
     if r.status_code != 200:
         print("loop %d failed in status code : %d", i, r.status_code)
     
-    # Fetch link
+    # Fetch the page links.
     soup = BeautifulSoup(r.text, "html.parser")
     items = soup.find_all(class_='news-item__title')
-    page_link: str = items[0]['href']
+    page_links: list[str] = [_['href'] for _ in items]
 
-    return page_link
+    return page_links
 
 
 async def links_task():
     '''
     Use asyncio for links crawling.
     '''
-    
+
     loop = asyncio.get_event_loop()
 
     # Get links from page 1 to 122.
     search_work = [get_links(loop, i) for i in range(1, 123)]
 
-    page_links: list = await asyncio.gather(*search_work)   
-    
+    results: list[list[str]] = await asyncio.gather(*search_work) 
+
+    # Use Numpy's flatten method in the list.
+    links: list[str] = [item for sublist in results for item in sublist]
+
     print('Get page links finished!')
 
-    return page_links
+    return links
