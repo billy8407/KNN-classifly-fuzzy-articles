@@ -1,6 +1,6 @@
 import asyncio
 
-from utiltiy.content_handler import content_task
+from utiltiy.content_handler import article_task
 from utiltiy.file_handler import File
 from utiltiy.urls_handler import urls_task
 
@@ -14,8 +14,8 @@ def download_data():
     # Keep urls in a file.
     File.write_json('urls.json', urls)
     
-    r = asyncio.run(
-        content_task(urls)
+    articles = asyncio.run(
+        article_task(urls)
     )
 
 
