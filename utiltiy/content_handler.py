@@ -56,9 +56,10 @@ async def article_task(urls: list):
     # Get urls from page 1 to 122.
     search_work = [get_article(loop, url) for url in urls]
 
+    print('Fetching urls from page 1 to 122 ...')
     articles: list[list[str]] = await asyncio.gather(*search_work) 
 
 
-    print('Get articles finished!')
+    print('Get %d articles finished!' %len(articles))
 
     return articles
