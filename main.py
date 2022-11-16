@@ -1,13 +1,18 @@
 import asyncio
 
+from utiltiy.file_handler import File
 from utiltiy.links_handler import links_task
 
 
 def download_data():
-    page_links = asyncio.run(
+    # All pages's urls
+    links = asyncio.run(
         links_task()
     )
-    pass
+    
+    # Keep urls in a file.
+    File.write_json('links.json', links)
+    
 
 if __name__ == '__main__':
     download_data()
