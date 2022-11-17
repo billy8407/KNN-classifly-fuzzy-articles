@@ -42,10 +42,13 @@ async def get_article(loop, url):
 
     # Classify articles to three categoris by title.
         if 'biden' in title and 'harris' not in title:
-            category = 'biden'
+            # 'biden' tag in 0
+            category = 0
         elif 'harris' in title and 'biden' not in title:
+            # 'harris' tag in 1
             category = 'harris'
         else:
+            # 'fuzzy' tag in 2
             category = 'fuzzy'
 
     article['title'] = title
