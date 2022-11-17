@@ -40,8 +40,19 @@ async def get_article(loop, url):
         else:
             paragraph.append(content) 
 
-    article[title]: dict[str, list] = paragraph
+    # Classify articles to three categoris by title.
+        if 'biden' in title and 'harris' not in title:
+            category = 'biden'
+        elif 'harris' in title and 'biden' not in title:
+            category = 'harris'
+        else:
+            category = 'fuzzy'
 
+    article['title'] = title
+    article['category'] = category
+
+    # Join an article's all paragraph and sentences to one string.
+    article['content'] = '\n'.join(paragraph)
 
     return article
 
