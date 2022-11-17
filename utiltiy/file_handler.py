@@ -1,5 +1,6 @@
 import json
 import os
+from random import shuffle
 
 SETTING_FOLDER_PATH = os.path.abspath(
     os.path.dirname(
@@ -22,3 +23,22 @@ class File():
         json_path = SETTING_FOLDER_PATH + r"/data/" + filename
         with open(json_path, "w") as infile:
             json.dump(data, infile)
+    
+    @classmethod
+    def generate_data(cls, filename):
+        """
+        Generate training and testing data.
+        """
+        
+        # Get all articles
+        data: list[dict[str, str]] = cls.read_json(filename)
+        
+        # Random the order.
+        shuffle(data)
+        train_num = int(len(data) * 0.8)
+        train_data = data[:train_num]
+        test_data = data[train_num:]
+
+        # Write to files.
+        cls.write_json('train_data.json', train_data)
+        cls.write_json('test_data.json', test_data)
