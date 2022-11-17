@@ -11,12 +11,15 @@ def download_data():
         urls_task()
     )
     
-    # Keep urls in a file.
+    # Keep urls in an file.
     File.write_json('urls.json', urls)
     
     articles = asyncio.run(
         article_task(urls)
     )
+
+    # Keep articles in an file.
+    File.write_json('articles.json', articles)
 
 
 if __name__ == '__main__':
